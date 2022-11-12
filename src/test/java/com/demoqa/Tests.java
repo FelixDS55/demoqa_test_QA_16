@@ -1,5 +1,6 @@
 package com.demoqa;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,8 @@ import javax.swing.text.AsyncBoxView;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -27,7 +30,7 @@ public class Tests {
         $("[id=lastName]").setValue("Turilov");
         $("[id=userEmail]").setValue("example@google.com");
         $("[id=gender-radio-1]").doubleClick();
-        $("[id=userNumber]").setValue("89001546995");
+        $("[id=userNumber]").setValue("9001546995");
         $("[id=dateOfBirthInput]").click();
         $(".react-datepicker__month-select").click();
         $(".react-datepicker__month-select").selectOption("January");
@@ -44,8 +47,28 @@ public class Tests {
         $("#uploadPicture").uploadFile(new File("src/test/resources/1.png"));
         $("#currentAddress").setValue("Some Address");
         $("#state").click();
-        $("#state").selectOption("NCR");
-        $("#state").pressTab();
+        $("#stateCity-wrapper").$(byText("NCR")).click();
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText("Delhi")).click();
+        $("#submit").click();
+
+        $(".modal-content").shouldBe(Condition.visible);
+        $(".modal-content").shouldHave(text("Mike Turilov"));
+        $(".modal-content").shouldHave(text("example@google.com"));
+        $(".modal-content").shouldHave(text("Male"));
+        $(".modal-content").shouldHave(text("9001546995"));
+        $(".modal-content").shouldHave(text("12 January,1985"));
+        $(".modal-content").shouldHave(text("Maths"));
+        $(".modal-content").shouldHave(text("Sports"));
+        $(".modal-content").shouldHave(text("1.png"));
+        $(".modal-content").shouldHave(text("Some Address"));
+        $(".modal-content").shouldHave(text("NCR Delhi"));
+        $("#closeLargeModal").click();
+
+
+
+
+
 
 
 
