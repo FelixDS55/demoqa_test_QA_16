@@ -16,6 +16,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class Tests {
 
+
+
     @BeforeAll
     static void setUp(){
         Configuration.baseUrl = "https://demoqa.com";
@@ -26,6 +28,8 @@ public class Tests {
     @Test
     void formTests(){
         open("/automation-practice-form");
+        executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('#fixedban').remove()");
         $("[id=firstName]").setValue("Mike");
         $("[id=lastName]").setValue("Turilov");
         $("[id=userEmail]").setValue("example@google.com");
@@ -64,14 +68,6 @@ public class Tests {
         $(".modal-content").shouldHave(text("Some Address"));
         $(".modal-content").shouldHave(text("NCR Delhi"));
         $("#closeLargeModal").click();
-
-
-
-
-
-
-
-
 
     }
 }
