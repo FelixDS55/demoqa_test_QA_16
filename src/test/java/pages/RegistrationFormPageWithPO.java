@@ -1,4 +1,4 @@
-package com.demoqa;
+package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
@@ -9,10 +9,11 @@ import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
 
 
-public class Copy_Tests {
+public class RegistrationFormPageWithPO {
+    RegistrationPage registrationPage = new RegistrationPage();
 
 
 
@@ -25,14 +26,19 @@ public class Copy_Tests {
 
     @Test
     void formTests(){
-        open("/automation-practice-form");
-        executeJavaScript("$('footer').remove()");
-        executeJavaScript("$('#fixedban').remove()");
 
-        $("[id=firstName]").setValue("Mike");
-        $("[id=lastName]").setValue("Turilov");
-        $("[id=userEmail]").setValue("example@google.com");
-        $("[id=gender-radio-1]").doubleClick();
+        registrationPage.openPage()
+                .setFirstName("Mike")
+                .setLastName("Turilov")
+                .setEmail("example@google.com")
+                .setGender("Other")
+                .setNumber("9001546995");
+
+
+
+
+
+
         $("[id=userNumber]").setValue("9001546995");
         $("[id=dateOfBirthInput]").click();
         $(".react-datepicker__month-select").click();
